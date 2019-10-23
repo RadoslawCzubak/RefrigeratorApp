@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_list.*
 
 /**
@@ -35,6 +36,9 @@ class listFragment : Fragment() {
             Product(1,"Jajka",23,"Nabiał","22.11.2020",1)
 
         )
+
+        val auth = FirebaseAuth.getInstance()
+        println("username: " + auth.currentUser)
 
         recyclerViewProducts.layoutManager = LinearLayoutManager(this.context)
         recyclerViewProducts.adapter = ProductAdapter(products)

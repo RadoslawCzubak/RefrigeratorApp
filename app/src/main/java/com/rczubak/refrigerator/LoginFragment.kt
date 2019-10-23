@@ -43,6 +43,7 @@ class LoginFragment : Fragment() {
             println(email+" "+ password)
             if(password!=null && email!=null){
                 mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener{
+                    
                     Navigation.findNavController(view!!).navigate(R.id.action_loginFragment_to_listFragment)
 
                 }

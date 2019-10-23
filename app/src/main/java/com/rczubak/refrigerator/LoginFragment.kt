@@ -18,7 +18,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var email: String;
     private lateinit var password: String;
-
+    private lateinit var mAuth: FirebaseAuth;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,8 +29,7 @@ class LoginFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        val mAuth = FirebaseAuth.getInstance()
+        mAuth = FirebaseAuth.getInstance()
 
 
 
@@ -56,5 +55,6 @@ class LoginFragment : Fragment() {
 
 
     }
+
 
 }

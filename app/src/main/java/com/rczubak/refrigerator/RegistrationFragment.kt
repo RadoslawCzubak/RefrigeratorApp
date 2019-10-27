@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_registration.*
 import kotlinx.android.synthetic.main.fragment_registration.emailTxt
 import kotlinx.android.synthetic.main.fragment_registration.loginBtnL
@@ -69,6 +70,8 @@ class RegistrationFragment : Fragment() {
                       auth.createUserWithEmailAndPassword(email, password)
                           .addOnSuccessListener {
 
+                              val product = mapOf("Name" to "First product")
+                              FirebaseFirestore.getInstance().document("/users/"+ FirebaseAuth.getInstance().currentUser).set(product)
                               Toast.makeText(context,"Registration successful!", Toast.LENGTH_LONG).show()
                               Log.d(TAG, "registration succesfill")
                               Navigation.findNavController(view).navigate(R.id.action_registrationFragment_to_loginFragment)

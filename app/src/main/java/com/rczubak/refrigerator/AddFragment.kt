@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_add.*
@@ -34,25 +35,25 @@ class AddFragment : Fragment() {
         addBtn.setOnClickListener {
         docRef = FirebaseFirestore.getInstance().document("simpleData/product")
 
-
-
+        saveProduct()
         }
     }
 
     private fun saveProduct(){
         val name = newNameTxt.text.toString()
         val quantity = newQuantityTxt.text.toString()
-        val date = dateTxt.toString()
+        val date = dateTxt.text.toString()
 
         println("Clicked")
         if(!name.isEmpty() && !quantity.isEmpty() && !date.isEmpty()){
-            var dataToSave = mapOf("Name" to name, "quantity" to quantity, "date" to date)
+            var dataToSave = mapOf("name" to name, "quantity" to quantity, "date" to date)
             docRef.set(dataToSave).addOnSuccessListener {
                 Toast.makeText(context,"Product added!", Toast.LENGTH_LONG).show()
-                println("Poszło")
+                println("db done")
+                Navigation.findNavController(view!!).navigate(R.id.action_AddFragment_to_ListFragment)
             }.addOnFailureListener {
                 Toast.makeText(context,"Product adding failed!", Toast.LENGTH_LONG).show()
-                println("nieposzło")
+                println("db fail")
             }
         }
     }

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
 /**
  * A simple [Fragment] subclass.
  */
-class listFragment : Fragment() {
+class ListFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,12 +28,12 @@ class listFragment : Fragment() {
 
         val products = mutableListOf(
             Product(1,"Jajka",23,"Nabiał","22.11.2020",1),
-            Product(1,"Jajka",23,"Nabiał","22.11.2020",1),
-            Product(1,"Jajka",23,"Nabiał","22.11.2020",1),
-            Product(1,"Jajka",23,"Nabiał","22.11.2020",1),
-            Product(1,"Jajka",23,"Nabiał","22.11.2020",1),
-            Product(1,"Jajka",23,"Nabiał","22.11.2020",1),
-            Product(1,"Jajka",23,"Nabiał","22.11.2020",1)
+            Product(1,"Mleko",23,"Nabiał","28.10.2020",1),
+            Product(1,"Chleb",23,"Produkty zbożowe","22.11.2020",1),
+            Product(1,"Makaron",23,"Makarony","22.11.2020",1),
+            Product(1,"Marchew",23,"Warzywa","22.11.2020",1),
+            Product(1,"Jabłko",23,"Owoce","22.11.2020",1),
+            Product(1,"Czekolada",23,"Słodycze","22.11.2020",1)
 
         )
 

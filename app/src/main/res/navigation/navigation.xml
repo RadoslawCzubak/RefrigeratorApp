@@ -16,7 +16,7 @@
             app:popEnterAnim="@anim/nav_default_enter_anim" />
         <action
             android:id="@+id/action_loginFragment_to_listFragment"
-            app:destination="@id/listFragment" />
+            app:destination="@id/ListFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -29,8 +29,21 @@
             app:popEnterAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
-        android:id="@+id/listFragment"
-        android:name="com.rczubak.refrigerator.listFragment"
+        android:id="@+id/ListFragment"
+        android:name="com.rczubak.refrigerator.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_ListFragment_to_AddFragment"
+            app:destination="@id/AddFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AddFragment"
+        android:name="com.rczubak.refrigerator.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_AddFragment_to_ListFragment"
+            app:destination="@id/ListFragment" />
+    </fragment>
 </navigation>

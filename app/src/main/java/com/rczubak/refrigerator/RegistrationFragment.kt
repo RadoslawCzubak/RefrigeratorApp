@@ -71,7 +71,7 @@ class RegistrationFragment : Fragment() {
                           .addOnSuccessListener {
 
                               val product = mapOf("Name" to "First product")
-                              FirebaseFirestore.getInstance().document("/users/"+ FirebaseAuth.getInstance().currentUser).set(product)
+                              FirebaseFirestore.getInstance().document("/users/"+ FirebaseAuth.getInstance().currentUser!!.email.toString()).set(product)
                               Toast.makeText(context,"Registration successful!", Toast.LENGTH_LONG).show()
                               Log.d(TAG, "registration succesfill")
                               Navigation.findNavController(view).navigate(R.id.action_registrationFragment_to_loginFragment)

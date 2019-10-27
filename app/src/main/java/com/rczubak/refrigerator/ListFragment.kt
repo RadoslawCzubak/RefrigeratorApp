@@ -1,19 +1,27 @@
 package com.rczubak.refrigerator
 
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_list.*
 
 /**
  * A simple [Fragment] subclass.
  */
 class ListFragment : Fragment() {
+
+    lateinit var db: FirebaseFirestore
+    lateinit var collection: CollectionReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,24 +34,28 @@ class ListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val products = mutableListOf(
-            Product(1,"Jajka",23,"Nabiał","22.11.2020",1),
-            Product(1,"Mleko",23,"Nabiał","28.10.2020",1),
-            Product(1,"Chleb",23,"Produkty zbożowe","22.11.2020",1),
-            Product(1,"Makaron",23,"Makarony","22.11.2020",1),
-            Product(1,"Marchew",23,"Warzywa","22.11.2020",1),
-            Product(1,"Jabłko",23,"Owoce","22.11.2020",1),
-            Product(1,"Czekolada",23,"Słodycze","22.11.2020",1)
+        val user = FirebaseAuth.getInstance().currentUser!!.email.toString()
+        println(user.toString())
+        db = FirebaseFirestore.getInstance()
+        collection = db.collection("users").document(user).collection("products")
 
-        )
-
-        val auth = FirebaseAuth.getInstance()
-        println("username: " + auth.currentUser)
-
-        recyclerViewProducts.layoutManager = LinearLayoutManager(this.context)
-        recyclerViewProducts.adapter = ProductAdapter(products)
+        setupRecyclerView()
 
     }
 
+    private fun setupRecyclerView() {
+
+        val query = collection.orderBy("name")
+
+        val adapter = FSProductAdapter(FirestoreRecyclerOptions.Builder<Product>()
+            .setQuery(query, Product::class.java)
+            .build())
+
+        recyclerViewProducts.layoutManager = LinearLayoutManager(context)
+        recyclerViewProducts.adapter = adapter
+
+        adapter.startListening()
+    }
 
 }
+

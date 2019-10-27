@@ -5,4 +5,6 @@ data class Product(val id: Int,
                    var quantity: Int,
                    val category: String,
                    val expirationDate: String,
-                   val image: Int)
+                   val image: Int){
+    constructor() : this(0,"",0,"","",0)
+}

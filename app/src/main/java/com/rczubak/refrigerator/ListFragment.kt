@@ -38,8 +38,6 @@ class ListFragment : Fragment() {
         db = FirebaseFirestore.getInstance()
         collection = db.collection("users").document(user).collection("products")
 
-
-
         setupRecyclerView()
 
     }
@@ -48,9 +46,11 @@ class ListFragment : Fragment() {
 
         val query = collection.orderBy("name")
 
-        val adapter = FSProductAdapter(FirestoreRecyclerOptions.Builder<Product>()
-            .setQuery(query, Product::class.java)
-            .build())
+        val adapter = FSProductAdapter(
+            FirestoreRecyclerOptions.Builder<Product>()
+                .setQuery(query, Product::class.java)
+                .build()
+        )
 
         recyclerViewProducts.layoutManager = LinearLayoutManager(context)
         recyclerViewProducts.adapter = adapter
@@ -59,7 +59,7 @@ class ListFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater!!.inflate(R.menu.info_menu, menu)
+        inflater.inflate(R.menu.info_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -67,8 +67,7 @@ class ListFragment : Fragment() {
 
         val itemId = item.itemId
 
-        if(itemId==R.id.infoItem)
-        {
+        if (itemId == R.id.infoItem) {
             Navigation.findNavController(view!!).navigate(R.id.action_ListFragment_to_infoFragment)
         }
 

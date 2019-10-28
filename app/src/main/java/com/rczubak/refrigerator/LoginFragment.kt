@@ -17,9 +17,9 @@ import kotlinx.android.synthetic.main.fragment_login.*
  */
 class LoginFragment : Fragment() {
 
-    private lateinit var email: String;
-    private lateinit var password: String;
-    private lateinit var mAuth: FirebaseAuth;
+    private lateinit var email: String
+    private lateinit var password: String
+    private lateinit var mAuth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,28 +32,31 @@ class LoginFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         mAuth = FirebaseAuth.getInstance()
 
-
-
-
         loginBtnL.setOnClickListener {
 
             email = emailTxt.text.toString()
             password = passTxt.text.toString()
 
-            if(password!=null && email!=null){
-                mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener{
+            if (password != null && email != null) {
+                mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
 
-                    Navigation.findNavController(view!!).navigate(R.id.action_loginFragment_to_listFragment)
+                    Navigation.findNavController(view!!)
+                        .navigate(R.id.action_loginFragment_to_listFragment)
 
                 }
                     .addOnFailureListener {
-                        Toast.makeText(context, "Login Failed! Check your username and password.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "Login Failed! Check your username and password.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
             }
         }
 
         registerBtnL.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_registrationFragment)
+            Navigation.findNavController(it)
+                .navigate(R.id.action_loginFragment_to_registrationFragment)
         }
 
 

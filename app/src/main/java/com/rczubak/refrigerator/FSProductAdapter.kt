@@ -51,8 +51,6 @@ class FSProductAdapter(val options: FirestoreRecyclerOptions<Product>) : Firesto
                 snapshots.getSnapshot(position).reference.delete()
             }
         }
-
-
     }
 
     class FSProductHolder(val view: View) : RecyclerView.ViewHolder(view)

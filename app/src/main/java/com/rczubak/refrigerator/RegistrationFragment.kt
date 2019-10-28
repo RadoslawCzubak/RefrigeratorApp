@@ -22,8 +22,7 @@ import kotlinx.android.synthetic.main.fragment_registration.registerBtnL
  * A simple [Fragment] subclass.
  */
 class RegistrationFragment : Fragment() {
-
-
+    
     private lateinit var email: String
     private lateinit var password: String
     private lateinit var password2: String
@@ -45,44 +44,47 @@ class RegistrationFragment : Fragment() {
 
 
 
-          registerBtnL.setOnClickListener {
+        registerBtnL.setOnClickListener {
 
-              password2 = confirmTxt.text.toString()
-              email = emailTxt.text.toString()
-              password = passTxt.text.toString()
-              println("clicked")
-              println(email +" "+ password+ " " +password2)
-              if(password != password2){
-                  Toast.makeText(this.context,"Passwords are different!", Toast.LENGTH_SHORT).show()
+            password2 = confirmTxt.text.toString()
+            email = emailTxt.text.toString()
+            password = passTxt.text.toString()
+            println("clicked")
+            println(email + " " + password + " " + password2)
+            if (password != password2) {
+                Toast.makeText(this.context, "Passwords are different!", Toast.LENGTH_SHORT).show()
 
-              }
-              else if (password.length<8 || password.toLowerCase() == password ){
-                  Toast.makeText(context,"Hasło musi mieć 8 znaków i 1 wielką litere", Toast.LENGTH_SHORT).show()
-              }
-              else{
+            } else if (password.length < 8 || password.toLowerCase() == password) {
+                Toast.makeText(
+                    context,
+                    "Hasło musi mieć 8 znaków i 1 wielką litere",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
 
-                  if(password2!=null && password!=null &&    email!=null) {
-
-
-                       val view = it
-                      println("Po nullach")
-
-                      auth.createUserWithEmailAndPassword(email, password)
-                          .addOnSuccessListener {
-
-                              val product = mapOf("Name" to "First product")
-                              FirebaseFirestore.getInstance().document("/users/"+ FirebaseAuth.getInstance().currentUser!!.email.toString()).set(product)
-                              Toast.makeText(context,"Registration successful!", Toast.LENGTH_LONG).show()
-                              Log.d(TAG, "registration succesfill")
-                              Navigation.findNavController(view).navigate(R.id.action_registrationFragment_to_loginFragment)
-                      }
-
-                  }
+                if (password2 != null && password != null && email != null) {
 
 
+                    val view = it
+                    println("Po nullach")
 
+                    auth.createUserWithEmailAndPassword(email, password)
+                        .addOnSuccessListener {
 
-              }
+                            val product = mapOf("Name" to "First product")
+                            FirebaseFirestore.getInstance()
+                                .document("/users/" + FirebaseAuth.getInstance().currentUser!!.email.toString())
+                                .set(product)
+                            Toast.makeText(context, "Registration successful!", Toast.LENGTH_LONG)
+                                .show()
+                            Log.d(TAG, "registration succesfill")
+                            Navigation.findNavController(view)
+                                .navigate(R.id.action_registrationFragment_to_loginFragment)
+                        }
+
+                }
+
+            }
         }
 
         loginBtnL.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_registrationFragment_to_loginFragment))

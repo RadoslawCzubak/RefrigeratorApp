@@ -1,8 +1,9 @@
 package com.rczubak.refrigerator
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
@@ -11,16 +12,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    public lateinit var userName: String
+    lateinit var userName: String
     lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
 
-
-
-        navController= Navigation.findNavController(this,R.id.nav_host_fragment)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
         setupBottomNavMenu(navController)
 
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         auth.signOut()
     }
 
-    private fun setupBottomNavMenu(navController: NavController){
+    private fun setupBottomNavMenu(navController: NavController) {
         bottom_nav.let {
             NavigationUI.setupWithNavController(it, navController)
         }

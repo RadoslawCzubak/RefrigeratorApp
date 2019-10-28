@@ -56,8 +56,8 @@ class RegistrationFragment : Fragment() {
                   Toast.makeText(this.context,"Passwords are different!", Toast.LENGTH_SHORT).show()
 
               }
-              else if (password.length<8){
-                  Toast.makeText(context,"Hasło musi mieć 8 znaków", Toast.LENGTH_SHORT).show()
+              else if (password.length<8 || password.toLowerCase() == password ){
+                  Toast.makeText(context,"Hasło musi mieć 8 znaków i 1 wielką litere", Toast.LENGTH_SHORT).show()
               }
               else{
 

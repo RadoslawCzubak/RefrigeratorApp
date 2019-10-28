@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.45" />
 
     <EditText
         android:id="@+id/passTxt"
@@ -39,7 +39,7 @@
         android:id="@+id/confirmTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="276dp"
         android:ems="10"
         android:hint="Confirm Password"
@@ -55,13 +55,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68">
+        app:layout_constraintTop_toBottomOf="@+id/confirmTxt"
+        app:layout_constraintVertical_bias="0.0">
 
         <Button
             android:id="@+id/loginBtnL"

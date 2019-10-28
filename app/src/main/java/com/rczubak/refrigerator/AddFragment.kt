@@ -2,16 +2,15 @@ package com.rczubak.refrigerator
 
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.fragment_add.addBtn
 import kotlinx.android.synthetic.main.layout_product.*
 
 /**
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.layout_product.*
  */
 class AddFragment : Fragment() {
 
-    lateinit var docRef: DocumentReference
+    lateinit var docRef: CollectionReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,11 +31,9 @@ class AddFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        addBtn.setOnClickListener {
-        docRef = FirebaseFirestore.getInstance().document("simpleData/product")
+        setHasOptionsMenu(true)
 
-        saveProduct()
-        }
+
     }
 
     private fun saveProduct(){
@@ -45,17 +42,32 @@ class AddFragment : Fragment() {
         val date = dateTxt.text.toString()
 
         println("Clicked")
-        if(!name.isEmpty() && !quantity.isEmpty() && !date.isEmpty()){
-            var dataToSave = mapOf("name" to name, "quantity" to quantity, "date" to date)
-            docRef.set(dataToSave).addOnSuccessListener {
-                Toast.makeText(context,"Product added!", Toast.LENGTH_LONG).show()
-                println("db done")
-                Navigation.findNavController(view!!).navigate(R.id.action_AddFragment_to_ListFragment)
-            }.addOnFailureListener {
-                Toast.makeText(context,"Product adding failed!", Toast.LENGTH_LONG).show()
-                println("db fail")
-            }
+        if(!name.trim().isEmpty() && !quantity.trim().isEmpty() && !date.trim().isEmpty()){
+            docRef.add(Product(name,Integer.parseInt(quantity),"nabial",date,1))
+            Toast.makeText(context,"Product already added!", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(view!!).navigate(R.id.action_AddFragment_to_ListFragment)
         }
+        else{
+            Toast.makeText(context,"Product adding failed!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater!!.inflate(R.menu.addmenu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val itemid = item.itemId
+
+        if(itemid==R.id.saveItem)
+        {
+            docRef = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().currentUser!!.email.toString()).collection("products")
+            saveProduct()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 

@@ -1,13 +1,10 @@
 package com.rczubak.refrigerator
 
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -34,10 +31,14 @@ class ListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        setHasOptionsMenu(true)
+
         val user = FirebaseAuth.getInstance().currentUser!!.email.toString()
         println(user.toString())
         db = FirebaseFirestore.getInstance()
         collection = db.collection("users").document(user).collection("products")
+
+
 
         setupRecyclerView()
 
@@ -55,6 +56,23 @@ class ListFragment : Fragment() {
         recyclerViewProducts.adapter = adapter
 
         adapter.startListening()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater!!.inflate(R.menu.info_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        val itemId = item.itemId
+
+        if(itemId==R.id.infoItem)
+        {
+            Navigation.findNavController(view!!).navigate(R.id.action_ListFragment_to_infoFragment)
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

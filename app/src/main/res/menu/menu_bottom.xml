@@ -8,5 +8,6 @@
         android:title="@string/refrigerator" />
     <item
         android:id="@+id/AddFragment"
-        android:title="@string/add" />
+        android:title="@string/add"
+        android:icon="@drawable/ic_add_black_24dp"/>
 </menu>

@@ -11,9 +11,9 @@
         android:id="@+id/newNameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="70dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/Name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/expiration_date"
-        android:inputType="date"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,9 +52,25 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/food_spinner"
         android:layout_width="214dp"
-        android:layout_height="35dp"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="317dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newQuantityTxt"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="195dp"
+        android:layout_height="162dp"
+        android:contentDescription="@string/fridge_icon"
+        android:src="@drawable/ic_fridge_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/food_spinner"
+        app:layout_constraintVertical_bias="0.214" />
 </androidx.constraintlayout.widget.ConstraintLayout>

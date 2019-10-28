@@ -22,17 +22,23 @@ class FSProductAdapter(val options: FirestoreRecyclerOptions<Product>) : Firesto
 
         holder.view.nameTxt.text = model.name
         holder.view.quantityTxt.text = "x"+model.quantity.toString()
-        holder.view.categoryTxt.text = model.name
+        holder.view.categoryTxt.text = model.category
         holder.view.expirationDateTxt.text = model.expirationDate
 
-        if(!checkExpirationDate(model.expirationDate)){
+        /*if(!checkExpirationDate(model.expirationDate)){
             holder.view.expirationDateTxt.setTextColor(Color.RED)
             println("here")
-        }
+        }*/
 
-        holder.view.imageView2.setImageResource(when(model.image){
-            1 -> R.drawable.nabial
-            else -> R.drawable.nabial
+        holder.view.imageView2.setImageResource(when(model.category.toLowerCase()){
+            "nabiał"-> R.drawable.nabial
+            "pieczywo" -> R.drawable.pieczywo
+            "słodycze" -> R.drawable.slodycze
+            "warzywa" -> R.drawable.warzywa
+            "owoce" -> R.drawable.owoce
+            "mięso" -> R.drawable.mieso
+            "makarony" -> R.drawable.makarony
+            else -> R.drawable.questionmark
         })
 
         holder.view.addBtn.setOnClickListener {
@@ -56,7 +62,7 @@ class FSProductAdapter(val options: FirestoreRecyclerOptions<Product>) : Firesto
 
     class FSProductHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-
+/*
     private fun checkExpirationDate( date:String): Boolean{
 
         if(date.length<11) {return true}
@@ -78,6 +84,6 @@ class FSProductAdapter(val options: FirestoreRecyclerOptions<Product>) : Firesto
         }
         return true
 
-    }
+    }*/
 
 }

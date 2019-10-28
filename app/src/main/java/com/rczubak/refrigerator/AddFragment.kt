@@ -3,6 +3,9 @@ package com.rczubak.refrigerator
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Adapter
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.navigation.Navigation
@@ -12,13 +15,17 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.layout_product.*
+import java.lang.NumberFormatException
 
 /**
  * A simple [Fragment] subclass.
  */
-class AddFragment : Fragment() {
+class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
+
+
 
     lateinit var docRef: CollectionReference
+    lateinit var category: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +38,12 @@ class AddFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
+        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(context!!, R.array.food_array, android.R.layout.simple_spinner_dropdown_item) //,  android.R.layout.simple_spinner_dropdown_item
+        food_spinner.adapter= adapter
+        food_spinner.setOnItemSelectedListener(this)
+
+
         setHasOptionsMenu(true)
 
 
@@ -42,8 +55,8 @@ class AddFragment : Fragment() {
         val date = dateTxt.text.toString()
 
         println("Clicked")
-        if(!name.trim().isEmpty() && !quantity.trim().isEmpty() && !date.trim().isEmpty()){
-            docRef.add(Product(name,Integer.parseInt(quantity),"nabial",date,1))
+        if(!name.trim().isEmpty() && !quantity.trim().isEmpty() && !date.trim().isEmpty() && dateFormatCheck(date)){
+            docRef.add(Product(name,Integer.parseInt(quantity),category,date))
             Toast.makeText(context,"Product already added!", Toast.LENGTH_SHORT).show()
             Navigation.findNavController(view!!).navigate(R.id.action_AddFragment_to_ListFragment)
         }
@@ -70,5 +83,47 @@ class AddFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        //doNothing
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        category = parent?.getItemAtPosition(position).toString()
+    }
+
+    private fun dateFormatCheck( date: String): Boolean{
+
+        if(date[2]!='.' || date[2]!='.'|| date.length!=10){
+            Toast.makeText(context,"Date format must be like DD.MM.YYYY", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        val day: Int
+        val month: Int
+        val year: Int
+
+        val dayString = date.substring(0,2)
+        val monthString = date.substring(3,5)
+
+
+        try {
+            day = Integer.parseInt(dayString)
+            month = Integer.parseInt(monthString)
+
+
+        }catch (e: NumberFormatException){
+            Toast.makeText(context,"Date is not a number!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+
+        if(day>31 || day<1 || month>12 || day<1)
+        {
+            Toast.makeText(context,"Wrong date!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
 
 }

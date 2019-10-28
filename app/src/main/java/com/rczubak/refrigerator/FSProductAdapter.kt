@@ -15,7 +15,6 @@ class FSProductAdapter(val options: FirestoreRecyclerOptions<Product>) : Firesto
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FSProductHolder {
 
         return FSProductHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_product,parent,false))
-
     }
 
     override fun onBindViewHolder(holder: FSProductHolder, position: Int, model: Product) {
@@ -25,10 +24,6 @@ class FSProductAdapter(val options: FirestoreRecyclerOptions<Product>) : Firesto
         holder.view.categoryTxt.text = model.category
         holder.view.expirationDateTxt.text = model.expirationDate
 
-        /*if(!checkExpirationDate(model.expirationDate)){
-            holder.view.expirationDateTxt.setTextColor(Color.RED)
-            println("here")
-        }*/
 
         holder.view.imageView2.setImageResource(when(model.category.toLowerCase()){
             "nabiał"-> R.drawable.nabial
@@ -61,29 +56,5 @@ class FSProductAdapter(val options: FirestoreRecyclerOptions<Product>) : Firesto
     }
 
     class FSProductHolder(val view: View) : RecyclerView.ViewHolder(view)
-
-/*
-    private fun checkExpirationDate( date:String): Boolean{
-
-        if(date.length<11) {return true}
-
-        val day = Integer.parseInt(date.substring(0,2))
-        val month = Integer.parseInt(date.substring(3,5))
-        val year = Integer.parseInt(date.substring(6))
-
-        val currDay = Date().day
-        val currMonth = Date().month
-        val currYear = Date().year
-
-        println(currDay)
-        println(currMonth)
-        println(currYear)
-
-        if(day<=currDay+2 && month <= currMonth && year<= currYear){
-            return false
-        }
-        return true
-
-    }*/
 
 }

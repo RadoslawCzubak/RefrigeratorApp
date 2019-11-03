@@ -37,7 +37,7 @@ class LoginFragment : Fragment() {
             email = emailTxt.text.toString()
             password = passTxt.text.toString()
 
-            if (password != null && email != null) {
+            if (!password.isEmpty() && !email.isEmpty()) {
                 mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
 
                     Navigation.findNavController(view!!)
@@ -51,6 +51,9 @@ class LoginFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+            }
+            else{
+                Toast.makeText(context, "Email or password is empty!", Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -49,7 +49,7 @@ class RegistrationFragment : Fragment() {
             password2 = confirmTxt.text.toString()
             email = emailTxt.text.toString()
             password = passTxt.text.toString()
-            println("clicked")
+
             println(email + " " + password + " " + password2)
             if (password != password2) {
                 Toast.makeText(this.context, "Passwords are different!", Toast.LENGTH_SHORT).show()
@@ -57,7 +57,7 @@ class RegistrationFragment : Fragment() {
             } else if (password.length < 8 || password.toLowerCase() == password) {
                 Toast.makeText(
                     context,
-                    "Hasło musi mieć 8 znaków i 1 wielką litere",
+                    "Password must be 8 characters long and contains one capital letter",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
@@ -66,7 +66,7 @@ class RegistrationFragment : Fragment() {
 
 
                     val view = it
-                    println("Po nullach")
+
 
                     auth.createUserWithEmailAndPassword(email, password)
                         .addOnSuccessListener {
@@ -77,7 +77,6 @@ class RegistrationFragment : Fragment() {
                                 .set(product)
                             Toast.makeText(context, "Registration successful!", Toast.LENGTH_LONG)
                                 .show()
-                            Log.d(TAG, "registration succesfill")
                             Navigation.findNavController(view)
                                 .navigate(R.id.action_registrationFragment_to_loginFragment)
                         }

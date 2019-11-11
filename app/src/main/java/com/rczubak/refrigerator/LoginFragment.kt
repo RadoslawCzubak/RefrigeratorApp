@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_login.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -20,6 +22,7 @@ class LoginFragment : Fragment() {
     private lateinit var email: String
     private lateinit var password: String
     private lateinit var mAuth: FirebaseAuth
+    private var loginClicked = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,13 +35,23 @@ class LoginFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         mAuth = FirebaseAuth.getInstance()
 
+
+
         loginBtnL.setOnClickListener {
+
 
             email = emailTxt.text.toString()
             password = passTxt.text.toString()
 
-            if (!password.isEmpty() && !email.isEmpty()) {
-                mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
+            email = "radco.iv@gmail.com"
+            password = "radek8"
+
+
+
+            if (!password.isEmpty() && !email.isEmpty() && !loginClicked) {
+                loginClicked = true
+                mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnSuccessListener {
 
                     Navigation.findNavController(view!!)
                         .navigate(R.id.action_loginFragment_to_listFragment)
@@ -50,6 +63,7 @@ class LoginFragment : Fragment() {
                             "Login Failed! Check your username and password.",
                             Toast.LENGTH_SHORT
                         ).show()
+                        loginClicked = false
                     }
             }
             else{

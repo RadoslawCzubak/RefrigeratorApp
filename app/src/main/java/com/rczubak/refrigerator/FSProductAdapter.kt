@@ -4,14 +4,27 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.rczubak.refrigerator.ErrorListener
+import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.layout_product.*
 import kotlinx.android.synthetic.main.layout_product.view.*
+import java.text.SimpleDateFormat
 import java.util.*
 
-class FSProductAdapter(val options: FirestoreRecyclerOptions<Product>) : FirestoreRecyclerAdapter<Product, FSProductAdapter.FSProductHolder>(options){
+typealias DataChangedListener = (count: Int) -> Unit
+typealias ErrorListener = (error: FirebaseFirestoreException) -> Unit
+
+class FSProductAdapter( options: FirestoreRecyclerOptions<Product>,
+                        private val onDataChangedListener: DataChangedListener = {},
+                        private val onErrorListener: ErrorListener = {}) : FirestoreRecyclerAdapter<Product, FSProductAdapter.FSProductHolder>(options){
+
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FSProductHolder {
 
         return FSProductHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_product,parent,false))
@@ -38,6 +51,7 @@ class FSProductAdapter(val options: FirestoreRecyclerOptions<Product>) : Firesto
 
         holder.view.addBtn.setOnClickListener {
             model.quantity+=1
+
             notifyDataSetChanged()
             snapshots.getSnapshot(position).reference.update("quantity",model.quantity)
         }
@@ -52,6 +66,33 @@ class FSProductAdapter(val options: FirestoreRecyclerOptions<Product>) : Firesto
             }
         }
     }
+
+    override fun onDataChanged() =
+        onDataChangedListener.invoke(itemCount)
+
+    fun getNumberOfItem():Boolean{
+        return snapshots.isEmpty()
+    }
+
+    /*private fun checkDate(productDate: String): Boolean {
+        val sdf = SimpleDateFormat("ddMMyyyy")
+        val currentTime = sdf.format(Date())
+        println(currentTime)
+
+        val day = currentTime.substring(0,2);
+        val month = currentTime.substring(2,4)
+        val year = currentTime.substring(4)
+        val pDay =
+        val pMonth =
+        val pYear =
+
+        if(day)
+
+        return true
+    }*/
+
+
+
 
     class FSProductHolder(val view: View) : RecyclerView.ViewHolder(view)
 

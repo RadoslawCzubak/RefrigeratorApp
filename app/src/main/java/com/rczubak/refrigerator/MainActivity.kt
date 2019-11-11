@@ -2,6 +2,9 @@ package com.rczubak.refrigerator
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -20,7 +23,11 @@ class MainActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
 
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+
+        NavigationUI.setupActionBarWithNavController(this, navController)
 
         setupBottomNavMenu(navController)
 
@@ -49,6 +56,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, drawer_layout)
+        return navController.navigateUp()
     }
 }

@@ -5,7 +5,7 @@
     <string name="category">CATEGORY</string>
     <string name="_22_10_2019">22.10.2019</string>
     <string name="delete">Delete</string>
-    <string name="expiration_date">Expiration date</string>
+    <string name="expiration_date">Expiration date (DD.MM.YYYY)</string>
     <string name="x25">x25</string>
     <string name="todo">TODO</string>
     <string name="category_image">Category Image</string>
@@ -23,14 +23,19 @@
     <string name="empty_text">Your refrigerator is empty! Add some new products :)</string>
     <string name="shopping_text">Shopping maybe? Make checklist!</string>
     <string name="vegs_descript">Vegs animation</string>
-
+    <string name="add_txt">Add</string>
+    <string name="wrong_date_format_toast">Date format must be like DD.MM.YYYY</string>
     <string-array name="food_array">
-        <item>Nabiał</item>
-        <item>Pieczywo</item>
-        <item>Mięso</item>
-        <item>Warzywa</item>
-        <item>Owoce</item>
-        <item>Słodycze</item>
-        <item>Makarony</item>
+        <item>Dairy</item>
+        <item>Bread</item>
+        <item>Meat</item>
+        <item>Vegetable</item>
+        <item>Fruit</item>
+        <item>Sweeties</item>
+    </string-array>
+    <string-array name="units">
+        <item>kg(s)</item>
+        <item> - </item>
+        <item>pckg(s)</item>
     </string-array>
 </resources>

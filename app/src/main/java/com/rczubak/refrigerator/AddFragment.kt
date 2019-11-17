@@ -42,7 +42,10 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(context!!, R.array.food_array, android.R.layout.simple_spinner_dropdown_item) //,  android.R.layout.simple_spinner_dropdown_item
         food_spinner.adapter= adapter
         food_spinner.setOnItemSelectedListener(this)
-
+        addProductBtn.setOnClickListener{
+            docRef = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().currentUser!!.email.toString()).collection("products")
+            saveProduct()
+        }
 
         setHasOptionsMenu(true)
 
@@ -54,11 +57,10 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val quantity = newQuantityTxt.text.toString()
         val date = dateTxt.text.toString()
 
-        println("Clicked")
         if(!name.trim().isEmpty() && !quantity.trim().isEmpty() && !date.trim().isEmpty() && dateFormatCheck(date)){
             docRef.add(Product(name,Integer.parseInt(quantity),category,date))
             Toast.makeText(context,"Product already added!", Toast.LENGTH_SHORT).show()
-            Navigation.findNavController(view!!).navigate(R.id.action_AddFragment_to_ListFragment)
+            Navigation.findNavController(view!!).navigate(R.id.ListFragment)
         }
         else{
             Toast.makeText(context,"Product adding failed!", Toast.LENGTH_SHORT).show()
@@ -95,7 +97,7 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private fun dateFormatCheck( date: String): Boolean{
 
         if(date[2]!='.' || date[2]!='.'|| date.length!=10){
-            Toast.makeText(context,"Date format must be like DD.MM.YYYY", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,R.string.wrong_date_format_toast, Toast.LENGTH_SHORT).show()
             return false
         }
 

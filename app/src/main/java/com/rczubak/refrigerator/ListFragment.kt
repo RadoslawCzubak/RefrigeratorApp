@@ -71,13 +71,6 @@ class ListFragment : Fragment() {
 
         adapter.startListening()
 
-
-        /*recyclerViewProducts.setRecyclerListener{
-            checkRecycler(adapter)
-        }*/
-
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -115,7 +108,8 @@ class ListFragment : Fragment() {
 
 
     fun showHideNoData(haveData: Boolean){
-        recyclerViewProducts.isVisible = haveData
+        if (recyclerViewProducts==null){return}
+        recyclerViewProducts?.isVisible = haveData
         emptyImage.isVisible = !haveData
         emptyTxt.isVisible = !haveData
         shoppingBtn.isVisible = !haveData

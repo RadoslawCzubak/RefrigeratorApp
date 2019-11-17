@@ -25,6 +25,15 @@
     <string name="vegs_descript">Vegs animation</string>
     <string name="add_txt">Add</string>
     <string name="wrong_date_format_toast">Date format must be like DD.MM.YYYY</string>
+    <string name="product_added">Product already added!</string>
+    <string name="product_failed">Product adding failed!</string>
+    <string name="date_nan">Date is not a number!</string>
+    <string name="wrong_date">Wrong date!</string>
+    <string name="reg_success">Registration successful!</string>
+    <string name="password_req">Password must be 8 characters long and contains one capital letter</string>
+    <string name="password_diff">Passwords are different!</string>
+    <string name=""></string>
+
     <string-array name="food_array">
         <item>Dairy</item>
         <item>Bread</item>

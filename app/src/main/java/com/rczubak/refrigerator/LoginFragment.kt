@@ -44,6 +44,7 @@ class LoginFragment : Fragment() {
             email = emailTxt.text.toString()
             password = passTxt.text.toString()
 
+            //TODO autologin
             email = "radco.iv@gmail.com"
             password = "radek8"
 

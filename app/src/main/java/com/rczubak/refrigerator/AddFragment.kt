@@ -17,9 +17,7 @@ import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.layout_product.*
 import java.lang.NumberFormatException
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
@@ -59,11 +57,11 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         if(!name.trim().isEmpty() && !quantity.trim().isEmpty() && !date.trim().isEmpty() && dateFormatCheck(date)){
             docRef.add(Product(name,Integer.parseInt(quantity),category,date))
-            Toast.makeText(context,"Product already added!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,R.string.product_added, Toast.LENGTH_SHORT).show()
             Navigation.findNavController(view!!).navigate(R.id.ListFragment)
         }
         else{
-            Toast.makeText(context,"Product adding failed!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,R.string.product_failed, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -115,14 +113,14 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
         }catch (e: NumberFormatException){
-            Toast.makeText(context,"Date is not a number!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,R.string.date_nan, Toast.LENGTH_SHORT).show()
             return false
         }
 
 
         if(day>31 || day<1 || month>12 || day<1)
         {
-            Toast.makeText(context,"Wrong date!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,R.string.wrong_date, Toast.LENGTH_SHORT).show()
             return false
         }
         return true

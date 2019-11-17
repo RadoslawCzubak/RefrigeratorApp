@@ -1,5 +1,6 @@
 package com.rczubak.refrigerator
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,7 +18,12 @@ class SplashActivity : AppCompatActivity() {
             {startActivity(Intent(this@SplashActivity,MainActivity::class.java))},
             1000)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
-        finish()
 
     }
+
+    override fun onPause() {
+        finish()
+        return super.onPause()
+    }
+
 }

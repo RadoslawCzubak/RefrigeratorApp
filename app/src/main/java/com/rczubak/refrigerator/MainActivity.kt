@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavMenu(navController)
 
 
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
             if (destination.id == R.id.loginFragment || destination.id == R.id.registrationFragment) {

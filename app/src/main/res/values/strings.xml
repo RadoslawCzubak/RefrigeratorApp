@@ -32,7 +32,6 @@
     <string name="reg_success">Registration successful!</string>
     <string name="password_req">Password must be 8 characters long and contains one capital letter</string>
     <string name="password_diff">Passwords are different!</string>
-    <string name=""></string>
 
     <string-array name="food_array">
         <item>Dairy</item>

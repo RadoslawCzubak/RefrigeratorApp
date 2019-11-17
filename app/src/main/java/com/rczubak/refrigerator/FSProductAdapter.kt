@@ -1,20 +1,15 @@
 package com.rczubak.refrigerator
 
-import android.graphics.Color
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestoreException
-import com.rczubak.refrigerator.ErrorListener
-import kotlinx.android.synthetic.main.fragment_list.*
-import kotlinx.android.synthetic.main.layout_product.*
 import kotlinx.android.synthetic.main.layout_product.view.*
-import java.text.SimpleDateFormat
-import java.util.*
+
 
 typealias DataChangedListener = (count: Int) -> Unit
 typealias ErrorListener = (error: FirebaseFirestoreException) -> Unit

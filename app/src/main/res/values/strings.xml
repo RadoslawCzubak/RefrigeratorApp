@@ -20,6 +20,9 @@
     <string name="imageview3_descript">register icon</string>
     <string name="Name">Name</string>
     <string name="fridge_icon">Fridge Icon</string>
+    <string name="empty_text">Your refrigerator is empty! Add some new products :)</string>
+    <string name="shopping_text">Shopping maybe? Make checklist!</string>
+    <string name="vegs_descript">Vegs animation</string>
 
     <string-array name="food_array">
         <item>Nabiał</item>

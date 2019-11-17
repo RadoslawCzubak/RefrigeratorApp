@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
@@ -53,8 +54,10 @@ class LoginFragment : Fragment() {
                 mAuth.signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener {
 
-                    Navigation.findNavController(view!!)
-                        .navigate(R.id.action_loginFragment_to_listFragment)
+                        emailTxt.onEditorAction(EditorInfo.IME_ACTION_DONE)
+                        passTxt.onEditorAction(EditorInfo.IME_ACTION_DONE)
+                        Navigation.findNavController(view!!)
+                        .navigate(R.id.action_loginFragment_to_navigation)
 
                 }
                     .addOnFailureListener {

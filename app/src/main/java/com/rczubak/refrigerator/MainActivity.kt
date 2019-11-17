@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -31,12 +32,21 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNavMenu(navController)
 
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
             if (destination.id == R.id.loginFragment || destination.id == R.id.registrationFragment) {
                 bottom_nav.visibility = View.GONE
             } else {
                 bottom_nav.visibility = View.VISIBLE
+            }
+
+            if (destination.id == R.id.ListFragment || destination.id == R.id.AddFragment){
+                supportActionBar?.setDisplayShowHomeEnabled(false)
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            }
+            else{
+                supportActionBar?.setDisplayShowHomeEnabled(true)
             }
         }
     }
@@ -56,6 +66,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+
         return navController.navigateUp()
     }
+
+
 }
+

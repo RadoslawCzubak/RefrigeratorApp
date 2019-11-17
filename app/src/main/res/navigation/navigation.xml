@@ -3,34 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/ListFragment">
 
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.rczubak.refrigerator.LoginFragment"
-        android:label="Log In"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment"
-            app:popEnterAnim="@anim/nav_default_enter_anim" />
-        <action
-            android:id="@+id/action_loginFragment_to_listFragment"
-            app:destination="@id/ListFragment"
-            app:launchSingleTop="false"
-            app:popEnterAnim="@anim/nav_default_enter_anim"
-            app:popUpToInclusive="false" />
-    </fragment>
-    <fragment
-        android:id="@+id/registrationFragment"
-        android:name="com.rczubak.refrigerator.RegistrationFragment"
-        android:label="Register"
-        tools:layout="@layout/fragment_registration">
-        <action
-            android:id="@+id/action_registrationFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popEnterAnim="@anim/nav_default_pop_exit_anim" />
-    </fragment>
     <fragment
         android:id="@+id/ListFragment"
         android:name="com.rczubak.refrigerator.ListFragment"
@@ -40,10 +14,11 @@
             android:id="@+id/action_ListFragment_to_AddFragment"
             app:destination="@id/AddFragment"
             app:exitAnim="@anim/nav_default_enter_anim"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_ListFragment_to_InfoFragment"
             app:destination="@id/InfoFragment"
+            app:popUpTo="@+id/ListFragment"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment

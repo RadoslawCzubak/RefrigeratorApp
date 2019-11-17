@@ -41,6 +41,7 @@ class ListFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
+
         val user = FirebaseAuth.getInstance().currentUser!!.email.toString()
         println(user.toString())
         db = FirebaseFirestore.getInstance()
@@ -89,7 +90,7 @@ class ListFragment : Fragment() {
         val itemId = item.itemId
 
         if (itemId == R.id.InfoFragment) {
-            view!!.findNavController().navigate(R.id.action_ListFragment_to_InfoFragment,null, NavOptions.Builder().setPopUpTo(R.id.ListFragment,true).build())
+            view!!.findNavController().navigate(R.id.action_ListFragment_to_InfoFragment,null, NavOptions.Builder().setPopUpTo(R.id.ListFragment, false).build())
         }
 
         return super.onOptionsItemSelected(item)
@@ -117,6 +118,8 @@ class ListFragment : Fragment() {
         recyclerViewProducts.isVisible = haveData
         emptyImage.isVisible = !haveData
         emptyTxt.isVisible = !haveData
+        shoppingBtn.isVisible = !haveData
+
         if(haveData)
         (emptyImage.drawable as AnimationDrawable).stop()
         else{

@@ -3,23 +3,18 @@ package com.rczubak.refrigerator
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.layout_product.*
-import java.lang.NumberFormatException
 
 
 class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
-
 
 
     lateinit var docRef: CollectionReference
@@ -37,11 +32,17 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
         super.onActivityCreated(savedInstanceState)
 
 
-        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(context!!, R.array.food_array, android.R.layout.simple_spinner_dropdown_item) //,  android.R.layout.simple_spinner_dropdown_item
-        food_spinner.adapter= adapter
-        food_spinner.setOnItemSelectedListener(this)
-        addProductBtn.setOnClickListener{
-            docRef = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().currentUser!!.email.toString()).collection("products")
+        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
+            context!!,
+            R.array.food_array,
+            android.R.layout.simple_spinner_dropdown_item
+        ) //,  android.R.layout.simple_spinner_dropdown_item
+        food_spinner.adapter = adapter
+        food_spinner.onItemSelectedListener = this
+        addProductBtn.setOnClickListener {
+            docRef = FirebaseFirestore.getInstance().collection("users")
+                .document(FirebaseAuth.getInstance().currentUser!!.email.toString())
+                .collection("products")
             saveProduct()
         }
 
@@ -50,23 +51,36 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     }
 
-    private fun saveProduct(){
+    private fun saveProduct() {
         val name = newNameTxt.text.toString()
         val quantity = newQuantityTxt.text.toString()
         val date = dateTxt.text.toString()
 
-        if(!name.trim().isEmpty() && !quantity.trim().isEmpty() && !date.trim().isEmpty() && dateFormatCheck(date)){
-            docRef.add(Product(name,Integer.parseInt(quantity),category,date))
-            Toast.makeText(context,R.string.product_added, Toast.LENGTH_SHORT).show()
+        if (!name.trim().isEmpty() && !quantity.trim().isEmpty() && !date.trim().isEmpty() && dateFormatCheck(
+                date
+            )
+        ) {
+            docRef.add(Product(name, Integer.parseInt(quantity), category, date))
+                .addOnSuccessListener {
+                    Toast.makeText(context, R.string.product_added, Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                Toast.makeText(context, R.string.product_failed, Toast.LENGTH_SHORT).show()
+            }
+
             Navigation.findNavController(view!!).navigate(R.id.ListFragment)
-        }
-        else{
-            Toast.makeText(context,R.string.product_failed, Toast.LENGTH_SHORT).show()
+        } else if (name.trim().isEmpty()) {
+            Toast.makeText(context, R.string.product_name_empty, Toast.LENGTH_SHORT).show()
+        } else if (quantity.trim().isEmpty()) {
+            Toast.makeText(context, R.string.product_quantity_empty, Toast.LENGTH_SHORT).show()
+        } else if (date.trim().isEmpty() || dateFormatCheck(date)) {
+            Toast.makeText(context, R.string.product_date_empty, Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, R.string.product_failed, Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater!!.inflate(R.menu.addmenu, menu)
+        inflater.inflate(R.menu.addmenu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -74,9 +88,10 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         val itemid = item.itemId
 
-        if(itemid==R.id.saveItem)
-        {
-            docRef = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().currentUser!!.email.toString()).collection("products")
+        if (itemid == R.id.saveItem) {
+            docRef = FirebaseFirestore.getInstance().collection("users")
+                .document(FirebaseAuth.getInstance().currentUser!!.email.toString())
+                .collection("products")
             saveProduct()
         }
 
@@ -92,10 +107,10 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
         category = parent?.getItemAtPosition(position).toString()
     }
 
-    private fun dateFormatCheck( date: String): Boolean{
+    private fun dateFormatCheck(date: String): Boolean {
 
-        if(date[2]!='.' || date[2]!='.'|| date.length!=10){
-            Toast.makeText(context,R.string.wrong_date_format_toast, Toast.LENGTH_SHORT).show()
+        if (date[2] != '.' || date[2] != '.' || date.length != 10) {
+            Toast.makeText(context, R.string.wrong_date_format_toast, Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -103,8 +118,8 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val month: Int
         val year: Int
 
-        val dayString = date.substring(0,2)
-        val monthString = date.substring(3,5)
+        val dayString = date.substring(0, 2)
+        val monthString = date.substring(3, 5)
 
 
         try {
@@ -112,15 +127,14 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
             month = Integer.parseInt(monthString)
 
 
-        }catch (e: NumberFormatException){
-            Toast.makeText(context,R.string.date_nan, Toast.LENGTH_SHORT).show()
+        } catch (e: NumberFormatException) {
+            Toast.makeText(context, R.string.date_nan, Toast.LENGTH_SHORT).show()
             return false
         }
 
 
-        if(day>31 || day<1 || month>12 || day<1)
-        {
-            Toast.makeText(context,R.string.wrong_date, Toast.LENGTH_SHORT).show()
+        if (day > 31 || day < 1 || month > 12 || day < 1) {
+            Toast.makeText(context, R.string.wrong_date, Toast.LENGTH_SHORT).show()
             return false
         }
         return true

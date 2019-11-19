@@ -48,7 +48,7 @@
             android:id="@+id/underTxt1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/expiration_date"
+            android:text="@string/expiration_date_2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2"

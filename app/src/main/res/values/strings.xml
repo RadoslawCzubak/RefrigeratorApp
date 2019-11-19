@@ -6,6 +6,7 @@
     <string name="_22_10_2019">22.10.2019</string>
     <string name="delete">Delete</string>
     <string name="expiration_date">Expiration date (DD.MM.YYYY)</string>
+    <string name="expiration_date_2">Expiration date</string>
     <string name="x25">x25</string>
     <string name="todo">TODO</string>
     <string name="category_image">Category Image</string>
@@ -32,6 +33,9 @@
     <string name="reg_success">Registration successful!</string>
     <string name="password_req">Password must be 8 characters long and contains one capital letter</string>
     <string name="password_diff">Passwords are different!</string>
+    <string name="product_name_empty">Product name cannot be empty!</string>
+    <string name="product_quantity_empty">You cannot own 0 pieces of product!</string>
+    <string name="product_date_empty">Check date format [DD.MM.YYYY]!</string>
 
     <string-array name="food_array">
         <item>Dairy</item>

@@ -34,12 +34,12 @@ class FSProductAdapter( options: FirestoreRecyclerOptions<Product>,
 
 
         holder.view.imageView2.setImageResource(when(model.category.toLowerCase()){
-            "dairy"-> R.drawable.nabial
-            "bread" -> R.drawable.pieczywo
-            "sweeties" -> R.drawable.slodycze
-            "vegetable" -> R.drawable.warzywa
-            "fruit" -> R.drawable.owoce
-            "meat" -> R.drawable.mieso
+            "dairy"-> R.drawable.diary
+            "bread" -> R.drawable.bread
+            "sweeties" -> R.drawable.sweeties
+            "vegetable" -> R.drawable.vegetable
+            "fruit" -> R.drawable.fruit
+            "meat" -> R.drawable.meat
             else -> R.drawable.questionmark
         })
 

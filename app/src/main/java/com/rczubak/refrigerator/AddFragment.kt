@@ -55,22 +55,23 @@ class AddFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val name = newNameTxt.text.toString()
         val quantity = newQuantityTxt.text.toString()
         val date = dateTxt.text.toString()
+        println(quantity.toInt())
 
         if (!name.trim().isEmpty() && !quantity.trim().isEmpty() && !date.trim().isEmpty() && dateFormatCheck(
                 date
-            )
+            ) && quantity.trim().toInt() > 0
         ) {
             docRef.add(Product(name, Integer.parseInt(quantity), category, date))
                 .addOnSuccessListener {
                     Toast.makeText(context, R.string.product_added, Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener {
-                Toast.makeText(context, R.string.product_failed, Toast.LENGTH_SHORT).show()
-            }
+                    Toast.makeText(context, R.string.product_failed, Toast.LENGTH_SHORT).show()
+                }
 
             Navigation.findNavController(view!!).navigate(R.id.ListFragment)
         } else if (name.trim().isEmpty()) {
             Toast.makeText(context, R.string.product_name_empty, Toast.LENGTH_SHORT).show()
-        } else if (quantity.trim().isEmpty()) {
+        } else if (quantity.trim().isEmpty() || quantity.trim().toInt() <= 0) {
             Toast.makeText(context, R.string.product_quantity_empty, Toast.LENGTH_SHORT).show()
         } else if (date.trim().isEmpty() || dateFormatCheck(date)) {
             Toast.makeText(context, R.string.product_date_empty, Toast.LENGTH_SHORT).show()

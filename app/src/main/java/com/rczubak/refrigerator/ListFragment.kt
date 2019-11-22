@@ -1,16 +1,13 @@
 package com.rczubak.refrigerator
 
 
-import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -62,7 +59,7 @@ class ListFragment : Fragment() {
                 .build(),
             { count -> showHideNoData(count > 0) }
         )
-        this.adapter=adapter
+        this.adapter = adapter
 
         recyclerViewProducts.layoutManager = LinearLayoutManager(context)
         recyclerViewProducts.adapter = adapter
@@ -81,22 +78,28 @@ class ListFragment : Fragment() {
         val itemId = item.itemId
 
         if (itemId == R.id.InfoFragment) {
-            view!!.findNavController().navigate(R.id.action_ListFragment_to_InfoFragment,null, NavOptions.Builder().setPopUpTo(R.id.ListFragment, false).build())
+            view!!.findNavController().navigate(
+                R.id.action_ListFragment_to_InfoFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.ListFragment, false).build()
+            )
+        } else if (itemId == R.id.logout_item) {
+            val auth = FirebaseAuth.getInstance()
+            auth.signOut()
+            view!!.findNavController().navigate(R.id.loginFragment)
         }
 
         return super.onOptionsItemSelected(item)
     }
 
-    private fun checkRecycler(adapter: FSProductAdapter){
+    private fun checkRecycler(adapter: FSProductAdapter) {
         println(adapter.getNumberOfItem())
-        if(adapter.getNumberOfItem()==true){
+        if (adapter.getNumberOfItem() == true) {
             recyclerViewProducts.visibility = View.INVISIBLE
             emptyTxt.visibility = View.VISIBLE
             emptyImage.visibility = View.VISIBLE
             (emptyImage.drawable as AnimationDrawable).start()
-        }
-
-        else{
+        } else {
             recyclerViewProducts.visibility = View.VISIBLE
             emptyTxt.visibility = View.GONE
             emptyImage.visibility = View.GONE
@@ -105,16 +108,18 @@ class ListFragment : Fragment() {
     }
 
 
-    fun showHideNoData(haveData: Boolean){
-        if (recyclerViewProducts==null){return}
+    fun showHideNoData(haveData: Boolean) {
+        if (recyclerViewProducts == null) {
+            return
+        }
         recyclerViewProducts?.isVisible = haveData
         emptyImage.isVisible = !haveData
         emptyTxt.isVisible = !haveData
         shoppingBtn.isVisible = !haveData
 
-        if(haveData)
-        (emptyImage.drawable as AnimationDrawable).stop()
-        else{
+        if (haveData)
+            (emptyImage.drawable as AnimationDrawable).stop()
+        else {
             (emptyImage.drawable as AnimationDrawable).start()
         }
     }

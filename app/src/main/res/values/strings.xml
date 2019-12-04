@@ -36,6 +36,7 @@
     <string name="product_name_empty">Product name cannot be empty!</string>
     <string name="product_quantity_empty">You cannot own 0 pieces of product!</string>
     <string name="product_date_empty">Check date format [DD.MM.YYYY]!</string>
+    <string name="register_network_fail">Internet connection problem.</string>
 
     <string-array name="food_array">
         <item>Dairy</item>
@@ -50,4 +51,7 @@
         <item> - </item>
         <item>pckg(s)</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
